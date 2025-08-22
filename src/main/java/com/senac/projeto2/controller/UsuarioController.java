@@ -35,7 +35,6 @@ public class UsuarioController {
         }else{
             return ResponseEntity.ok(usuario);
         }
-
     }
 
     @PostMapping("/criar")
