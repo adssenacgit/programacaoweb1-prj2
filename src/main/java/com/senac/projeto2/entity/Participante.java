@@ -3,6 +3,7 @@ package com.senac.projeto2.entity;
 import jakarta.persistence.*;
 
 import java.io.File;
+import java.util.List;
 
 @Entity
 @Table(name="participante")
@@ -23,6 +24,9 @@ public class Participante {
     private File foto_participante;
     @Column(name="participante_status")
     private int status;
+
+    @OneToMany(mappedBy = "paticipante")
+    private List<Inscricao> inscricoes;
 
     public int getId() {
         return id;
