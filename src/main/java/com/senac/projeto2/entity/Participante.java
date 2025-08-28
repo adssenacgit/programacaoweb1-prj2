@@ -83,4 +83,12 @@ public class Participante {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public List<Inscricao> getInscricoes() {
+        return inscricoes;
+    }
+
+    public void setInscricoes(List<Inscricao> inscricoes) {
+        this.inscricoes = inscricoes;
+    }
 }

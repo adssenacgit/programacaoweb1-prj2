@@ -1,6 +1,7 @@
 package com.senac.projeto2.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,24 @@ public class Inscricao {
     private LocalDateTime data;
     @Column(name="inscricao_status")
     private int status;
+
+    @Transient
+    @JsonProperty("idParticipante")
+    public int getIdParticipante(){
+        return participante !=null ? participante.getId() : null;
+    }
+
+    @Transient
+    @JsonProperty("nomeParticipante")
+    public String getNomeParticipante(){
+        return participante !=null ? participante.getNome() : null;
+    }
+
+    @Transient
+    @JsonProperty("idJogo")
+    public int getIdJogo(){
+        return jogo !=null ? jogo.getId() : null;
+    }
 
     @ManyToOne
     @JoinColumn(name = "jogo_id", nullable = false)
