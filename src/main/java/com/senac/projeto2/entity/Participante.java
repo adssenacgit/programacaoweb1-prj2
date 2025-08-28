@@ -25,7 +25,7 @@ public class Participante {
     @Column(name="participante_status")
     private int status;
 
-    @OneToMany(mappedBy = "paticipante")
+    @OneToMany(mappedBy = "participante")
     private List<Inscricao> inscricoes;
 
     public int getId() {

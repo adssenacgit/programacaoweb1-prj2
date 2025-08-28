@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="jogo")
 public class Jogo {
@@ -20,6 +22,9 @@ public class Jogo {
     @JoinColumn(name = "categoria_id", nullable = false)
     @JsonIgnore
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "jogo")
+    private List<Inscricao> inscricoes;
 
     public int getId() {
         return id;
@@ -51,5 +56,13 @@ public class Jogo {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public List<Inscricao> getInscricoes() {
+        return inscricoes;
+    }
+
+    public void setInscricoes(List<Inscricao> inscricoes) {
+        this.inscricoes = inscricoes;
     }
 }
