@@ -24,20 +24,34 @@ public class UsuarioService {
     }
 
     public List<Usuario> listarUsuarios(){
-        return this.usuarioRepository.findAll();
+        return this.usuarioRepository.listarUsuariosAtivos();
     }
 
     public Usuario listarUsuarioPorId(int idUsuario){
-        return this.usuarioRepository.findById(idUsuario).orElse(null);
+        return this.usuarioRepository.obterUsuarioAtivoPorId(idUsuario);
     }
 
     public UsuarioDtoResponse salvar(UsuarioDtoRequest usuarioDtoRequest) {
-        //preciso passar os valores do objeto usuarioDto para usuario
         Usuario usuario = modelMapper.map(usuarioDtoRequest, Usuario.class);
         usuario.setStatus(1);
 
         Usuario usuarioSave = this.usuarioRepository.save(usuario);
 
         return modelMapper.map(usuarioSave, UsuarioDtoResponse.class);
+    }
+
+    public UsuarioDtoResponse atualizar(@Valid Integer idUsuario, UsuarioDtoRequest usuarioDtoRequest) {
+        Usuario usuario = this.listarUsuarioPorId(idUsuario);
+        if(usuario!= null){
+            modelMapper.map(usuarioDtoRequest, usuario);
+            Usuario usuarioTemp = this.usuarioRepository.save(usuario);
+            return modelMapper.map(usuarioTemp, UsuarioDtoResponse.class);
+        }else{
+            return null;
+        }
+    }
+
+    public void apagar(Integer idUsuario) {
+        this.usuarioRepository.apagadoLogico(idUsuario);
     }
 }

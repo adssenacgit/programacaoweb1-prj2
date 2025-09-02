@@ -46,13 +46,18 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.salvar(usuarioDtoRequest));
     }
 
-    @PutMapping("/atualizar")
-    public String atualizar(){
-        return  "Usuario atualizado com sucesso!";
+    @PutMapping("/atualizar/{idUsuario}")
+    @Operation(summary = "Atualizar todos os dados um usuario")
+    public ResponseEntity<UsuarioDtoResponse> atualizar(
+            @Valid @PathVariable("idUsuario") Integer idUsuario,
+            @RequestBody UsuarioDtoRequest usuarioDtoRequest){
+        return ResponseEntity.ok(usuarioService.atualizar(idUsuario, usuarioDtoRequest));
     }
 
-    @DeleteMapping("/apagar")
-    public String apagar(){
-        return "Usuario apagado com sucesso!";
+    @DeleteMapping("/apagar/{idUsuario}")
+    @Operation(summary = "Apagar usuario pelo idUsuario")
+    public ResponseEntity<UsuarioDtoResponse> apagar(@PathVariable("idUsuario") Integer idUsuario){
+        usuarioService.apagar(idUsuario);
+        return ResponseEntity.noContent().build();
     }
 }
