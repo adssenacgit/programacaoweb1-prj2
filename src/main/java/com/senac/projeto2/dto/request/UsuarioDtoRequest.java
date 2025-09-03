@@ -1,10 +1,19 @@
 package com.senac.projeto2.dto.request;
 
+import com.senac.projeto2.validators.ValidaDataNascimento;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class UsuarioDtoRequest {
+    @NotBlank(message = "o nome é obrigatório")
     private String nome;
+    @Size(min = 11, max = 11, message = "O cpf tem que ter 11 caracteres")
+    @NotBlank(message = "o cpf é obrigatório")
     private String cpf;
+    @ValidaDataNascimento
     private LocalDate dataNascimento;
 
     public String getNome() {
