@@ -6,6 +6,7 @@ import com.senac.projeto2.dto.response.CategoriaDTOResponse;
 import com.senac.projeto2.entity.Categoria;
 import com.senac.projeto2.repository.CategoriaRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +15,12 @@ import java.util.List;
 public class CategoriaService {
 
     private final CategoriaRepository categoriaRepository;
-    private final ModelMapper modelMapper;
 
-    public CategoriaService(CategoriaRepository categoriaRepository, ModelMapper modelMapper) {
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public CategoriaService(CategoriaRepository categoriaRepository) {
         this.categoriaRepository = categoriaRepository;
-        this.modelMapper = modelMapper;
     }
 
     public List<Categoria> listarCategorias(){
