@@ -18,27 +18,22 @@ import java.util.List;
 
 @Service
 public class JogoService {
-
     @Autowired
     private ModelMapper modelMapper;
-
     private final JogoRepository jogoRepository;
     private final CategoriaRepository categoriaRepository;
 
-
-    public JogoService(JogoRepository jogoRepository,CategoriaRepository categoriaRepository) {
+    public JogoService(JogoRepository jogoRepository,
+                       CategoriaRepository categoriaRepository) {
         this.jogoRepository = jogoRepository;
         this.categoriaRepository = categoriaRepository;
     }
-
     public List<Jogo> listarJogos(){
         return this.jogoRepository.listarJogos();
     }
-
     public Jogo listarJogoPorId(int idJogo){
         return this.jogoRepository.obterJogoPorId(idJogo);
     }
-
     public JogoDTOResponse salvar(JogoDTORequest jogoDTORequest) {
         Jogo jogo = new Jogo();
         jogo.setNome(jogoDTORequest.getNome());
@@ -61,7 +56,7 @@ public class JogoService {
         }
     }
 
-    public void apagar(Integer idUsuario) {
-        this.jogoRepository.apagadoLogico(idUsuario);
+    public void apagar(Integer idJogo) {
+        this.jogoRepository.apagadoLogico(idJogo);
     }
 }
