@@ -32,7 +32,8 @@ public class UsuarioService {
     }
 
     public UsuarioDtoResponse salvar(UsuarioDtoRequest usuarioDtoRequest) {
-        Usuario usuario = modelMapper.map(usuarioDtoRequest, Usuario.class);
+        Usuario usuario = new Usuario();
+        modelMapper.map(usuarioDtoRequest, usuario);
         usuario.setStatus(1);
 
         Usuario usuarioSave = this.usuarioRepository.save(usuario);

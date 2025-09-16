@@ -1,14 +1,15 @@
 package com.senac.projeto2.controller;
 
+import com.senac.projeto2.dto.request.CategoriaDTORequest;
+import com.senac.projeto2.dto.request.CategoriaDTORequestUpdate;
+import com.senac.projeto2.dto.response.CategoriaDTOResponse;
 import com.senac.projeto2.entity.Categoria;
 import com.senac.projeto2.service.CategoriaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,4 +40,22 @@ public class CategoriaController {
         }
     }
 
+    @PostMapping("/criar")
+    @Operation(summary = "Criar uma categoria")
+    public ResponseEntity<CategoriaDTOResponse> salvarCategoria(@RequestBody CategoriaDTORequest categoriaDTORequest){
+        return ResponseEntity.ok(categoriaService.salvar(categoriaDTORequest));
+    }
+
+    @PutMapping("/atualizar/{idCategoria}")
+    @Operation(summary = "Atualizar uma categoria")
+    public ResponseEntity<CategoriaDTOResponse> atualizarCategoria(@PathVariable("idCategoria") Integer idCategoria, @RequestBody CategoriaDTORequestUpdate categoriaDTORequestUpdate){
+        return ResponseEntity.ok(categoriaService.editar(idCategoria, categoriaDTORequestUpdate));
+    }
+
+    @DeleteMapping("/apagar/{idCategoria}")
+    @Operation(summary = "Apagar uma categoria")
+    public ResponseEntity<CategoriaDTOResponse> apagarCategoria(@PathVariable("idCategoria") Integer idCategoria){
+        categoriaService.apagar(idCategoria);
+        return ResponseEntity.noContent().build();
+    }
 }
