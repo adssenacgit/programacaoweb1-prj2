@@ -1,12 +1,15 @@
 package com.senac.projeto2.controller;
 
+import com.senac.projeto2.dto.request.LoginUserDto;
 import com.senac.projeto2.dto.request.UsuarioDtoRequest;
+import com.senac.projeto2.dto.response.RecoveryJwtTokenDto;
 import com.senac.projeto2.dto.response.UsuarioDtoResponse;
 import com.senac.projeto2.entity.Usuario;
 import com.senac.projeto2.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +41,12 @@ public class UsuarioController {
         }else{
             return ResponseEntity.ok(usuario);
         }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<RecoveryJwtTokenDto> authenticateUser(@RequestBody LoginUserDto loginUserDto) {
+        RecoveryJwtTokenDto token = usuarioService.authenticateUser(loginUserDto);
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
     @PostMapping("/criar")

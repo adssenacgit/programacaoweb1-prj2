@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
@@ -29,4 +30,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Transactional
     @Query("UPDATE Usuario u SET u.status = -1 WHERE u.id = :id")
     int apagadoLogico(@Param("id") int id);
+
+    Optional<Usuario> findByLogin(String login);
 }
