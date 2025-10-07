@@ -66,11 +66,16 @@ public class UsuarioService {
 
     public UsuarioDtoResponse salvar(UsuarioDtoRequest usuarioDtoRequest) {
         Role role = new Role();
-        role.setName(usuarioDtoRequest.role());
+        role.setName(usuarioDtoRequest.getRoleName());
 
         Usuario usuario = new Usuario();
-
+        usuario.setCpf(usuarioDtoRequest.getCpf());
+        usuario.setNome(usuarioDtoRequest.getNome());
+        usuario.setDataNascimento(usuarioDtoRequest.getDataNascimento());
+        usuario.setLogin(usuarioDtoRequest.getLogin());
+        usuario.setSenha(securityConfiguration.passwordEncoder().encode(usuarioDtoRequest.getSenha()));
         usuario.setStatus(1);
+        usuario.setRoles(List.of(role));
 
         Usuario usuarioSave = this.usuarioRepository.save(usuario);
 
